@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berlin Jazz Kapelle – Ihr exklusives Live-Erlebnis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #16213e;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --gold: #d4af37;
+            --gold-light: #e8c84a;
+            --gold-dark: #b8962e;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Fade-in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+            mix-blend-mode: multiply;
+            filter: contrast(1.2);
+        }
+
+        .nav-logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-instagram {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 30% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 30%, rgba(22, 33, 62, 0.8) 0%, transparent 50%),
+                linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            z-index: 0;
+        }
+
+        .hero-particles {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float-up linear infinite;
+        }
+
+        @keyframes float-up {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-10vh) scale(1);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-subtitle-top {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 7vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .hero h1 .gold {
+            color: var(--gold);
+        }
+
+        .hero-tagline {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--gold-light);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.9s forwards;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.2s forwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.2rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--gold);
+            padding: 0.8rem 0;
+        }
+
+        .btn-ghost:hover {
+            color: var(--gold-light);
+        }
+
+        .btn-ghost svg {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-ghost:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .section-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin-bottom: 3rem;
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            margin: 1.5rem 0;
+        }
+
+        /* Why Section */
+        .why-section {
+            background: var(--bg-secondary);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .why-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+        }
+
+        .why-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            background: rgba(212, 175, 55, 0.04);
+            transform: translateY(-4px);
+        }
+
+        .why-card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .why-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.8rem;
+            color: var(--gold-light);
+        }
+
+        .why-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Musicians Section */
+        .musicians-section {
+            background: var(--bg-primary);
+        }
+
+        .musician {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            margin-bottom: 5rem;
+        }
+
+        .musician:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .musician.reverse {
+            direction: rtl;
+        }
+
+        .musician.reverse > * {
+            direction: ltr;
+        }
+
+        .musician-photo {
+            aspect-ratio: 3/4;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            background: var(--bg-card);
+        }
+
+        .musician-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .musician-photo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background:
+                linear-gradient(135deg, var(--bg-card) 0%, rgba(212, 175, 55, 0.05) 100%);
+            position: relative;
+        }
+
+        .musician-photo-placeholder::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 8px;
+        }
+
+        .musician-photo-placeholder svg {
+            width: 80px;
+            height: 80px;
+            color: var(--gold);
+            opacity: 0.3;
+            margin-bottom: 1rem;
+        }
+
+        .musician-photo-placeholder span {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+
+        .musician-info .musician-role {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .musician-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .musician-info .intro {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--gold-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .musician-info .bio {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .musician-achievements {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .musician-achievements li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .musician-achievements li::before {
+            content: '◆';
+            color: var(--gold);
+            font-size: 0.6rem;
+            margin-top: 0.4rem;
+            flex-shrink: 0;
+        }
+
+        /* Repertoire Section */
+        .repertoire-section {
+            background: var(--bg-secondary);
+            position: relative;
+        }
+
+        .repertoire-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .repertoire-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid var(--gold);
+            border-radius: 0 6px 6px 0;
+        }
+
+        .repertoire-item span {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .repertoire-fun {
+            background: rgba(212, 175, 55, 0.06);
+            border: 1px dashed rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .repertoire-fun p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--gold-light);
+        }
+
+        /* YouTube Embed */
+        .youtube-embed {
+            margin: 3rem 0;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            background: #000;
+        }
+
+        .youtube-embed iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Video thumbnail hover effect */
+        .video-thumbnail:hover img {
+            transform: scale(1.05);
+        }
+
+        .video-thumbnail:hover > div {
+            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%);
+        }
+
+        .video-thumbnail:hover > div > div {
+            transform: scale(1.1);
+        }
+
+        /* Audience Section */
+        .audience-section {
+            background: var(--bg-primary);
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .audience-card {
+            padding: 2.5rem 2rem;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .audience-card:hover {
+            border-color: rgba(212, 175, 55, 0.25);
+            transform: translateY(-4px);
+        }
+
+        .audience-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .audience-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--gold-light);
+        }
+
+        .audience-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--bg-secondary);
+            text-align: center;
+        }
+
+        .contact-section .section-title,
+        .contact-section .section-subtitle {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-cta {
+            margin: 3rem 0;
+        }
+
+        .contact-cta .btn {
+            font-size: 1.1rem;
+            padding: 1.2rem 3rem;
+        }
+
+        .contact-direct {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .contact-item:hover {
+            color: var(--gold);
+        }
+
+        .contact-item svg {
+            flex-shrink: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-primary);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social a {
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-social a:hover {
+            color: var(--gold);
+        }
+
+        .footer-copy {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+
+        /* Scroll indicator */
+        .hero-image-placeholder {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .hero-image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            opacity: 0;
+            animation: fadeInUp 1s ease 2s forwards;
+        }
+
+        .scroll-indicator-inner {
+            width: 24px;
+            height: 38px;
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .scroll-indicator-inner::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 2px;
+            animation: scroll-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes scroll-dot {
+            0%, 100% { top: 6px; opacity: 1; }
+            50% { top: 18px; opacity: 0.3; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(15, 23, 42, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .musician {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .musician.reverse {
+                direction: ltr;
+            }
+
+            .musician-photo {
+                aspect-ratio: 16/9;
+            }
+
+            .contact-direct {
+                gap: 1.5rem;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
+            .repertoire-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="nav-logo">
+            <img src="Fotos/BJK Logo.gif" alt="Berlin Jazz Kapelle Logo">
+            <span class="nav-logo-text">Berlin Jazz Kapelle</span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#warum">Über uns</a></li>
+            <li><a href="#musiker">Musiker</a></li>
+            <li><a href="#repertoire">Repertoire</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+            <li>
+                <a href="https://www.instagram.com/felix_mross_piano/" target="_blank" rel="noopener" class="nav-instagram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                    </svg>
+                    Instagram
+                </a>
+            </li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+        <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-image-placeholder">
+            <img src="Fotos/Group.jpeg" alt="Berlin Jazz Kapelle Live" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.35; filter: grayscale(20%) contrast(1.1) brightness(0.7);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, var(--bg-primary) 100%);"></div>
+            <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(212, 175, 55, 0.06) 0%, transparent 70%);"></div>
+        </div>
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle-top">Berlin Jazz Kapelle</p>
+            <h1>Musik, die <span class="gold">bewegt.</span></h1>
+            <p class="hero-tagline">Ihr exklusives Live-Erlebnis für Events in Berlin und Umgebung</p>
+            <p>Von intimen Duo-Abenden bis zur kompletten Band mit sechs Musikern – wir sorgen für den perfekten Soundtrack Ihres Events.</p>
+            <div class="hero-buttons">
+                <a href="#kontakt" class="btn btn-primary">Jetzt kontaktieren</a>
+                <a href="https://www.youtube.com/@BerlinJazzKapelle" target="_blank" rel="noopener" class="btn btn-secondary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                    YouTube-Kanal ansehen
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-indicator-inner"></div>
+        </div>
+    </section>
+
+    <!-- Why Section -->
+    <section class="why-section" id="warum">
+        <div class="section-container">
+            <div class="fade-in">
+                <p class="section-label">Warum die Berlin Jazz Kapelle?</p>
+                <h2 class="section-title">Mehr als Hintergrundmusik.<br>Eine Atmosphäre, die bleibt.</h2>
+                <div class="divider"></div>
+                <p class="section-subtitle">Wir verbinden die Intimität eines Jazz-Trios mit der Power einer vollen Band.</p>
+            </div>
+            <div class="why-grid">
+                <div class="why-card fade-in">
+                    <div class="why-card-icon">✦</div>
+                    <h3>Maximale Flexibilität</h3>
+                    <p>Ob klassisches Duo – Daniel Mai an der Gitarre & Felix Mross am Klavier – oder volle Band mit Gesang. Wir passen uns Ihrem Event an.</p>
+                </div>
+                <div class="why-card fade-in">
+                    <div class="why-card-icon">⚑</div>
+                    <h3>Berliner Qualität</h3>
+                    <p>Wir sind zu Hause in Berlin. Kurzfristig, zuverlässig und mit lokaler Verbundenheit.</p>
+                </div>
+                <div class="why-card fade-in">
+                    <div class="why-card-icon">♪</div>
+                    <h3>Vielseitiges Repertoire</h3>
+                    <p>Von klassischem Jazz über lateinamerikanische Klänge bis hin zu modernen Covers. Wir lesen den Raum und die Stimmung.</p>
+                </div>
+                <div class="why-card fade-in">
+                    <div class="why-card-icon">✦</div>
+                    <h3>Für jeden Anlass</h3>
+                    <p>Ob Hochzeit, Firmenfeier, Geburtstag oder privates Dinner. Wir machen Ihr Event zum Erlebnis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Musicians Section -->
+    <section class="musicians-section" id="musiker">
+        <div class="section-container">
+            <div class="fade-in" style="text-align: center; margin-bottom: 4rem;">
+                <p class="section-label">Die Musiker hinter dem Sound</p>
+                <h2 class="section-title">Leidenschaft, Kompetenz, Erfahrung.</h2>
+                <div class="divider" style="margin: 1.5rem auto;"></div>
+            </div>
+
+            <!-- Felix Mross -->
+            <div class="musician fade-in">
+                <div class="musician-photo">
+                    <img src="Fotos/Felix Mross Foto.png" alt="Felix Mross am Klavier" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                </div>
+                <div class="musician-info">
+                    <p class="musician-role">Klavier</p>
+                    <h3>Felix Mross</h3>
+                    <p class="intro">Klassisch ausgebildet. Jazz-verliebt. Ein Pianist von internationalem Format.</p>
+                    <ul class="musician-achievements">
+                        <li>Gewinner mehrerer Bundespreise bei „Jugend musiziert"</li>
+                        <li>Träger des WDR-Klassikpreises (2004)</li>
+                        <li>Auftritte als Solist und Begleiter u.a. in der Carnegie Hall New York</li>
+                        <li>Spezialist für Jazz und lateinamerikanische Stilrichtungen</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Daniel Mai -->
+            <div class="musician reverse fade-in">
+                <div class="musician-photo">
+                    <img src="Fotos/Daniel Mai Foto.png" alt="Daniel Mai an der Gitarre" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                </div>
+                <div class="musician-info">
+                    <p class="musician-role">Gitarre</p>
+                    <h3>Daniel Mai</h3>
+                    <p class="intro">Leidenschaftliche, rhythmisch starke Gitarrenkunst – filigran und kraftvoll.</p>
+                    <ul class="musician-achievements">
+                        <li>Gewinner des Internationalen Templiner Gitarrenwettbewerbs</li>
+                        <li>Langjährige Erfahrung mit Duo- und Bandformationen</li>
+                        <li>Flexible Anpassung an jedes Repertoire und jede Veranstaltungsform</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Philip Radlanski -->
+            <div class="musician fade-in">
+                <div class="musician-photo">
+                    <img src="Fotos/Philip Radlanski Foto.png" alt="Philip Radlanski am Bass" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                </div>
+                <div class="musician-info">
+                    <p class="musician-role">Bass</p>
+                    <h3>Philip Radlanski</h3>
+                    <p class="intro">Im perfekten Suit, sorgt für maßgeschneiderte groovy Basslines.</p>
+                    <ul class="musician-achievements">
+                        <li>Erfahrener Bassist in Jazz-, Funk- und Blues-Formationen</li>
+                        <li>Langjährige Bühnenerfahrung</li>
+                        <li>Das solide Bass-Fundament der Berlin Jazz Kapelle</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Repertoire Section -->
+    <section class="repertoire-section" id="repertoire">
+        <div class="section-container">
+            <div class="fade-in" style="text-align: center;">
+                <p class="section-label">Live-Eindrücke & Repertoire</p>
+                <h2 class="section-title">Hören Sie selbst.</h2>
+                <div class="divider" style="margin: 1.5rem auto;"></div>
+                <p class="section-subtitle" style="margin-left: auto; margin-right: auto;">Über 200 Live-Aufnahmen beweisen unsere Vielseitigkeit.</p>
+            </div>
+
+            <div class="repertoire-grid fade-in">
+                <div class="repertoire-item">
+                    <span>♪</span>
+                    <span>Zeitloser Jazz-Klassiker</span>
+                </div>
+                <div class="repertoire-item">
+                    <span>♪</span>
+                    <span>Lateinamerikanische Rhythmen</span>
+                </div>
+                <div class="repertoire-item">
+                    <span>♪</span>
+                    <span>Moderne Covers in jazziger Aufmachung</span>
+                </div>
+            </div>
+
+            <div class="video-references fade-in" style="margin-top: 3rem;">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 2rem; color: var(--gold-light); text-align: center;">Soundreferenzen</h3>
+                <div class="video-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    <a href="https://www.youtube.com/watch?v=_a68iAXONsk" target="_blank" rel="noopener" class="video-thumbnail" style="position: relative; display: block; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; background: #000; cursor: pointer; text-decoration: none;">
+                        <img src="https://img.youtube.com/vi/_a68iAXONsk/maxresdefault.jpg" alt="Video 1" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease;" onerror="this.src='https://img.youtube.com/vi/_a68iAXONsk/hqdefault.jpg'">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 100%); display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;">
+                            <div style="width: 64px; height: 46px; background: rgba(212, 175, 55, 0.95); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.4); transition: transform 0.3s ease;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#0f172a"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=FXysDNoIeFY" target="_blank" rel="noopener" class="video-thumbnail" style="position: relative; display: block; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; background: #000; cursor: pointer; text-decoration: none;">
+                        <img src="https://img.youtube.com/vi/FXysDNoIeFY/maxresdefault.jpg" alt="Video 2" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease;" onerror="this.src='https://img.youtube.com/vi/FXysDNoIeFY/hqdefault.jpg'">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 100%); display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;">
+                            <div style="width: 64px; height: 46px; background: rgba(212, 175, 55, 0.95); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.4); transition: transform 0.3s ease;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#0f172a"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=bCRlcFgyais" target="_blank" rel="noopener" class="video-thumbnail" style="position: relative; display: block; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; background: #000; cursor: pointer; text-decoration: none;">
+                        <img src="https://img.youtube.com/vi/bCRlcFgyais/maxresdefault.jpg" alt="Video 3" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease;" onerror="this.src='https://img.youtube.com/vi/bCRlcFgyais/hqdefault.jpg'">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 100%); display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;">
+                            <div style="width: 64px; height: 46px; background: rgba(212, 175, 55, 0.95); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.4); transition: transform 0.3s ease;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#0f172a"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=4Lb0rNwrkFQ" target="_blank" rel="noopener" class="video-thumbnail" style="position: relative; display: block; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; background: #000; cursor: pointer; text-decoration: none;">
+                        <img src="https://img.youtube.com/vi/4Lb0rNwrkFQ/maxresdefault.jpg" alt="Video 4" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease;" onerror="this.src='https://img.youtube.com/vi/4Lb0rNwrkFQ/hqdefault.jpg'">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 100%); display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;">
+                            <div style="width: 64px; height: 46px; background: rgba(212, 175, 55, 0.95); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.4); transition: transform 0.3s ease;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#0f172a"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audience Section -->
+    <section class="audience-section" id="anlaesse">
+        <div class="section-container">
+            <div class="fade-in" style="text-align: center;">
+                <p class="section-label">Für wen spielen wir?</p>
+                <h2 class="section-title">Ihr Event. Stimmungsvoll begleitet.</h2>
+                <div class="divider" style="margin: 1.5rem auto;"></div>
+            </div>
+            <div class="audience-grid">
+                <div class="audience-card fade-in">
+                    <div class="audience-card-icon">🎉</div>
+                    <h3>Private Feiern</h3>
+                    <p>Geburtstage, Hochzeiten, Jubiläen, Familienfeste. Schaffen Sie ein unvergessliches Ambiente.</p>
+                </div>
+                <div class="audience-card fade-in">
+                    <div class="audience-card-icon">🏢</div>
+                    <h3>Firmenveranstaltungen</h3>
+                    <p>Sommerfeste, Weihnachtsfeiern, Gala-Abende. Professionell, diskret und stilvoll.</p>
+                </div>
+                <div class="audience-card fade-in">
+                    <div class="audience-card-icon">🍷</div>
+                    <h3>Gastronomie & Events</h3>
+                    <p>Hochwertige Untermalung für Ihre Location. Exklusiver Klang für anspruchsvolles Publikum.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="kontakt">
+        <div class="section-container">
+            <div class="fade-in">
+                <p class="section-label">Lassen Sie uns sprechen</p>
+                <h2 class="section-title">Ihr Event verdient den perfekten Sound.</h2>
+                <div class="divider" style="margin: 1.5rem auto;"></div>
+                <p class="section-subtitle" style="margin-left: auto; margin-right: auto;">Wir beraten Sie gerne persönlich zu Repertoire, Besetzung und technischen Voraussetzungen.</p>
+            </div>
+            <div class="contact-cta fade-in">
+                <a href="mailto:kontakt@berlinjazzkapelle.de?subject=Anfrage%20Live-Musik&body=Sehr%20geehrte%20Berlin%20Jazz%20Kapelle%2C%0A%0Aich%20interessiere%20mich%20f%C3%BCr%20Ihre%20Live-Musik%20f%C3%BCr%3A%0A%0ADatum%3A%0AOrt%3A%0AEvent-Art%3A%0A%0AMit%20freundlichen%20Gr%C3%BC%C3%9Fen" class="btn btn-primary">Jetzt unverbindlich anfragen</a>
+            </div>
+            <div class="contact-direct fade-in">
+                <a href="mailto:kontakt@berlinjazzkapelle.de" class="contact-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    kontakt@berlinjazzkapelle.de
+                </a>
+                <a href="tel:+49123456789" class="contact-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    +49 123 456789
+                </a>
+                <a href="https://www.instagram.com/felix_mross_piano/" target="_blank" rel="noopener" class="contact-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                    </svg>
+                    @felix_mross_piano
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">Berlin Jazz Kapelle</div>
+        <div class="footer-social">
+            <a href="https://www.youtube.com/@BerlinJazzKapelle" target="_blank" rel="noopener" aria-label="YouTube">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+            </a>
+            <a href="https://www.instagram.com/felix_mross_piano/" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                </svg>
+            </a>
+            <a href="mailto:kontakt@berlinjazzkapelle.de" aria-label="E-Mail">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                </svg>
+            </a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Berlin Jazz Kapelle. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // Fade-in on scroll
+        const fadeEls = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        fadeEls.forEach(el => observer.observe(el));
+
+        // Floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 8 + 6) + 's';
+            particle.style.animationDelay = (Math.random() * 10) + 's';
+            particle.style.width = (Math.random() * 2 + 1) + 'px';
+            particle.style.height = particle.style.width;
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+
+</body>
+</html>
